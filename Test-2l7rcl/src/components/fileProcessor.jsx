@@ -1,42 +1,34 @@
-import React, { useState } from "react";
-import './fileProcessor.css'
+import React from 'react';
+const fs = require('uxp').storage.localFileSystem;
 
 function FileProcessor() {
-    const [text, setText] = useState('');
-
-    const handleFileUpload = (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const content = e.target.result;
-          const cleanedText = processSrt(content);
-          setText(cleanedText);
-        };
-        reader.readAsText(file);
+  const selectAndReadFile = async () => {
+    try {
+      // Prompt user to select a file
+      const file = await fs.getFileForOpening({ types: ['srt'] });
+      if (!file) {
+        console.log('No file selected');
+        return;
       }
-    };
-  
-    const processSrt = (content) => {
-      // Remove time codes and sequence numbers using regex
-      return content.replace(/(\d+\n)?\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}\n/g, '');
-    };
-  
-    const downloadTxtFile = () => {
-      const blob = new Blob([text], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'captions.txt';
-      link.click();
-    };
-  
-    return (
-      <div>
-        <label>Choose an SRT file</label>
-        <input type="file" accept=".srt" onChange={handleFileUpload} />
-        <sp-button onClick={downloadTxtFile} disabled={!text}>Download TXT</sp-button>
-      </div>
-    );
+
+      // Read the file content
+      const content = await file.read();
+      const cleanedText = processSrt(content);
+      console.log(cleanedText);
+    } catch (error) {
+      console.error('Error selecting or reading file:', error);
+    }
+  };
+
+  const processSrt = (content) => {
+    return content.replace(/(\d+\n)?\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}\n/g, '');
+  };
+
+  return (
+    <div>
+      <button onClick={selectAndReadFile}>Select SRT File</button>
+    </div>
+  );
 }
 
-export default FileProcessor
+export default FileProcessor;
