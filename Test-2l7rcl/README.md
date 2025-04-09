@@ -1,5 +1,7 @@
 # React Starter Plugin
 
+Test
+
 This plugin is a good place to get started when building a PremierePro plugin using React. It comes defined with all the dependencies that you'll need to get started. As this is a React project, you'll need to do some initial configuration before this will be usable in PremierePro.
 
 ## Install dependencies
