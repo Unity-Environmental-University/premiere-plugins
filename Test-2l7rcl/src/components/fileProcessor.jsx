@@ -1,7 +1,7 @@
 import React from 'react';
 const fs = require('uxp').storage.localFileSystem;
 
-function FileProcessor() {
+export const FileProcessor = () => {
   const selectAndReadFile = async () => {
     try {
       // Prompt user to select a file
@@ -30,5 +30,3 @@ function FileProcessor() {
     </div>
   );
 }
-
-export default FileProcessor;
