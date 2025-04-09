@@ -11,6 +11,8 @@
     }
   ],
   "requiredPermissions": {
+    "localFileSystem": "fullAccess",
+    "clipboard": "readAndWrite",
     "allowCodeGenerationFromStrings": true,
     "launchProcess": {
       "schemes": [
