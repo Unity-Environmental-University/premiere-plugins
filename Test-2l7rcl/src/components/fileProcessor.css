@@ -1,12 +1,11 @@
-/* label {
-    display: block;
-    font:
-      1rem "Fira Sans",
-      sans-serif;
-  }
-  
-  input,
-  label {
-    margin: 0.4rem 0;
-  }
-   */
+.plugin-content {
+  color:var(--uxp-host-text-color-secondary, white);
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.plugin-content > * {
+  margin: 5px;
+}
