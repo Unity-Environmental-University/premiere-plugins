@@ -48,7 +48,7 @@ export const FileProcessor = () => {
 
   return (
     <div>
-      <button onClick={convertSrtToTxt}>Select SRT File</button>
+      <sp-button onClick={convertSrtToTxt}>Select SRT File</sp-button>
     </div>
   );
 }
