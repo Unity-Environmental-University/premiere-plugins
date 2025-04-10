@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 const fsProvider = require('uxp').storage.localFileSystem;
 
 
@@ -6,8 +6,6 @@ export const FileProcessor = () => {
   const selectAndReadFile = async () => {
     try {
       // selects a file
-      // const file = await fsProvider.getEntryForPersistentToken(token);
-
       const file = await fsProvider.getFileForOpening({ types: ['srt'] });
       if (!file) {
         console.log('No file selected');
@@ -35,13 +33,6 @@ export const FileProcessor = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const testString = `1\n00:00:00,458 --> 00:00:03,461\nWhat if you could see the world through an animal's eyes?\n\n2\n00:00:03,545 --> 00:00:07,382\nImagine understanding not just what they do, but why they do it.\n\n3\n00:00:07,674 --> 00:00:12,137\nAnd using that knowledge to build trust, improve care and enhance their wellbeing.\n`;
-  //   console.log("Test String Before:", testString);
-  //   const result = processSrt(testString);
-  //   console.log("Test String After:", result);
-  // }, []);
-  
   // strips sequence numbers and timecode
   const processSrt = (content) => {
     console.log("BEFORE", content)
@@ -54,7 +45,6 @@ export const FileProcessor = () => {
     return processedContent
   };
 
-  // console.log(cleanedText, "Cleaned Text")
 
   return (
     <div>
