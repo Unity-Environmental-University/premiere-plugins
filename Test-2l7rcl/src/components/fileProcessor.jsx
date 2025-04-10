@@ -1,4 +1,6 @@
 import React from 'react';
+import "./fileProcessor.css"
+
 const fsProvider = require('uxp').storage.localFileSystem;
 
 
@@ -47,7 +49,7 @@ export const FileProcessor = () => {
   };
 
   return (
-    <div>
+    <div className="plugin-content">
       <sp-button onClick={convertSrtToTxt}>Select SRT File</sp-button>
     </div>
   );
