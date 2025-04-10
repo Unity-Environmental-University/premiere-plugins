@@ -3,22 +3,22 @@ const fsProvider = require('uxp').storage.localFileSystem;
 
 
 export const FileProcessor = () => {
-  const selectAndReadFile = async () => {
+  const convertSrtToTxt = async () => {
     try {
-      // selects a file
+      // select a file
       const file = await fsProvider.getFileForOpening({ types: ['srt'] });
       if (!file) {
         console.log('No file selected');
         return;
       }
 
-      // reads file content
+      // read file content
       const content = await file.read();
       const middleMan = content
       const cleanedText = processSrt(middleMan);
       console.log("CLEANED TEXT", cleanedText);
 
-   // selects a location to save TXT file
+   // select a location to save TXT file
       const txtFile = await fsProvider.getFileForSaving('cleaned_subtitles.txt', { types: ['txt'] });
       console.log(`File content: ${txtFile}`);
       if (!txtFile) {
@@ -33,22 +33,22 @@ export const FileProcessor = () => {
     }
   };
 
-  // strips sequence numbers and timecode
+  // strip sequence numbers and timecode
   const processSrt = (content) => {
-    console.log("BEFORE", content)
+    console.log("BEFORE", content);
+  
     let processedContent = content
-    .replace(/^\d+\n/gm, '')
-    .replace(/\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}\n/g, '')
-    .replace(/^\s*[\r\n]/gm, '')
-    .trim();
-    console.log("AFTER", processedContent)
-    return processedContent
+      .replace(/(?:\r?\n)?^\d+\r?\n/gm, '')  // remove sequence numbers
+      .replace(/^\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}\r?\n/gm, '')  // remove timecodes
+      .replace(/^\s*[\r\n]+/gm, '')  // remove any empty lines left
+      .trim();
+    console.log("AFTER", processedContent);
+    return processedContent;
   };
-
 
   return (
     <div>
-      <button onClick={selectAndReadFile}>Select SRT File</button>
+      <button onClick={convertSrtToTxt}>Select SRT File</button>
     </div>
   );
 }
