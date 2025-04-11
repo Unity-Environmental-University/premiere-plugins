@@ -1,6 +1,6 @@
 {
   "id": "Test-2l7rcl",
-  "name": "Hello world",
+  "name": "Convert SRT to TXT",
   "version": "1.0.0",
   "main": "index.html",
   "manifestVersion": 5,
@@ -21,8 +21,7 @@
       ],
       "extensions": [
         ".svg",
-        ".png",
-        ".srt"
+        ".png"
       ]
     },
     "webview": {
