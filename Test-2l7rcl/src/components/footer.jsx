@@ -1,11 +1,20 @@
 import React from "react";
 import "./footer.css";
 
-export const Footer = () => {
+export const Footer = ({isFileProcessed}) => {
+  console.log("inside FOOTER", isFileProcessed)
+
+  if(isFileProcessed) {
+    // change the value to 100
+  }
+
   return (
     <sp-body>
       <div className="plugin-footer">
-        <h2>This is the footer</h2>
+        <sp-detail>Completion Status</sp-detail>
+        <sp-progressbar max={100} value={isFileProcessed ? 100 : 0}>
+          <sp-label slot="label">Uploading...</sp-label>
+        </sp-progressbar>
       </div>
     </sp-body>
   );
