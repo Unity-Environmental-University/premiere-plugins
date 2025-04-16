@@ -4,7 +4,8 @@ import "./fileProcessor.css"
 const fsProvider = require('uxp').storage.localFileSystem;
 
 
-export const FileProcessor = () => {
+export const FileProcessor = ({setIsFileProcessed}) => {
+  
   const convertSrtToTxt = async () => {
     try {
       // select a file
@@ -16,9 +17,12 @@ export const FileProcessor = () => {
 
       // read file content
       const content = await file.read();
-      const middleMan = content
-      const cleanedText = processSrt(middleMan);
+      const cleanedText = processSrt(content);
       console.log("CLEANED TEXT", cleanedText);
+
+      if(cleanedText) {
+        setIsFileProcessed(true)
+      }
 
    // select a location to save TXT file
       const txtFile = await fsProvider.getFileForSaving('cleaned_subtitles.txt', { types: ['txt'] });
@@ -37,8 +41,7 @@ export const FileProcessor = () => {
 
   // strip sequence numbers and timecode
   const processSrt = (content) => {
-    console.log("BEFORE", content);
-  
+
     let processedContent = content
       .replace(/(?:\r?\n)?^\d+\r?\n/gm, '')  // remove sequence numbers
       .replace(/^\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}\r?\n/gm, '')  // remove timecodes
