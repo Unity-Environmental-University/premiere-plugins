@@ -24,6 +24,11 @@ export const FileProcessor = ({setIsFileProcessed}) => {
         setIsFileProcessed(true)
       }
 
+      setTimeout(() => {
+        setIsFileProcessed(false)
+      }, 5000)
+    
+
    // select a location to save TXT file
       const txtFile = await fsProvider.getFileForSaving('cleaned_subtitles.txt', { types: ['txt'] });
       console.log(`File content: ${txtFile}`);
