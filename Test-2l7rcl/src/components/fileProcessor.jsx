@@ -1,6 +1,6 @@
 import React from 'react';
 import "./fileProcessor.css"
-import { ImportIcon } from './import';
+import { FileAddIcon } from './fileAdd';
 
 const fsProvider = require('uxp').storage.localFileSystem;
 
@@ -59,7 +59,7 @@ export const FileProcessor = ({setIsFileProcessed}) => {
   return (
     <div className="plugin-content">
       <div className='import-icon-container'>
-        <ImportIcon />
+        <FileAddIcon />
       </div>
       <sp-button onClick={convertSrtToTxt}>
         Select SRT
