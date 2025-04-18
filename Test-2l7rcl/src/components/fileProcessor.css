@@ -1,10 +1,14 @@
 .plugin-content {
-  color:var(--uxp-host-text-color-secondary, white);
+  color: var(--uxp-host-text-color-secondary, white);
   width: 100%;
+  height: 65px;
   padding: 5px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  align-items: center;
+  margin-top: 20px;
 }
 .plugin-content > * {
   margin: 5px;
