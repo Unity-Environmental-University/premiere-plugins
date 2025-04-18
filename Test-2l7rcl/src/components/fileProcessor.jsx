@@ -1,10 +1,10 @@
 import React from 'react';
 import "./fileProcessor.css"
-import { ImportIcon } from './import';
+import { FileAddIcon } from './fileAdd';
 
 const fsProvider = require('uxp').storage.localFileSystem;
 
-export const FileProcessor = ({setIsFileProcessed}) => {
+export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
   
   const convertSrtToTxt = async () => {
     try {
@@ -17,6 +17,7 @@ export const FileProcessor = ({setIsFileProcessed}) => {
 
       // read file content
       const content = await file.read();
+      console.log("READING FILE", content)
       const cleanedText = processSrt(content);
       console.log("CLEANED TEXT", cleanedText);
 
@@ -28,7 +29,6 @@ export const FileProcessor = ({setIsFileProcessed}) => {
         setIsFileProcessed(false)
       }, 5000)
     
-
    // select a location to save TXT file
       const txtFile = await fsProvider.getFileForSaving('cleaned_subtitles.txt', { types: ['txt'] });
       console.log(`File content: ${txtFile}`);
@@ -40,8 +40,13 @@ export const FileProcessor = ({setIsFileProcessed}) => {
       await txtFile.write(cleanedText);
       console.log('File saved successfully');
     } catch (error) {
+      setErrorOccurred(true);
       console.error('Error processing file:', error);
     }
+    
+    setTimeout(() => {
+      setErrorOccurred(false);
+    }, 5000);
   };
 
   // strip sequence numbers and timecode
@@ -59,7 +64,7 @@ export const FileProcessor = ({setIsFileProcessed}) => {
   return (
     <div className="plugin-content">
       <div className='import-icon-container'>
-        <ImportIcon />
+        <FileAddIcon />
       </div>
       <sp-button onClick={convertSrtToTxt}>
         Select SRT
