@@ -15,10 +15,8 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
         return;
       }
 
-      // store file name
+      // store file name with extension removed
       const fileNameWithoutExtention = file.name.replace(/.srt$/, '').replace(/.mp4$/, '');
-      console.log("fileNameWithoutExtention", fileNameWithoutExtention)
-
       // read file content
       const content = await file.read();
       // console.log("READING FILE", content)
@@ -35,7 +33,6 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
     
       // use original filename for default save name
       const txtFileName = `${fileNameWithoutExtention}`;
-      console.log("text file name", txtFileName)
 
       // select a location to save TXT file
       const txtFile = await fsProvider.getFileForSaving(txtFileName, { types: ['txt'] });
