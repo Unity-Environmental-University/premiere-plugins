@@ -15,11 +15,15 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
         return;
       }
 
+      // store file name
+      const fileNameWithoutExtention = file.name.replace(/.srt$/, '').replace(/.mp4$/, '');
+      console.log("fileNameWithoutExtention", fileNameWithoutExtention)
+
       // read file content
       const content = await file.read();
-      console.log("READING FILE", content)
+      // console.log("READING FILE", content)
       const cleanedText = processSrt(content);
-      console.log("CLEANED TEXT", cleanedText);
+      // console.log("CLEANED TEXT", cleanedText);
 
       if(cleanedText) {
         setIsFileProcessed(true)
@@ -29,8 +33,12 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
         setIsFileProcessed(false)
       }, 5000)
     
-   // select a location to save TXT file
-      const txtFile = await fsProvider.getFileForSaving('cleaned_subtitles.txt', { types: ['txt'] });
+      // use original filename for default save name
+      const txtFileName = `${fileNameWithoutExtention}`;
+      console.log("text file name", txtFileName)
+
+      // select a location to save TXT file
+      const txtFile = await fsProvider.getFileForSaving(txtFileName, { types: ['txt'] });
       console.log(`File content: ${txtFile}`);
       if (!txtFile) {
         console.log('No location selected to save the file');
