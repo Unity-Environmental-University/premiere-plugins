@@ -1,4 +1,5 @@
 import React from "react";
+import "./statusComplete.css"
 import { CheckmarkCircleIcon } from "./checkMarkCircle";
 
 export const StatusComplete = () => {
