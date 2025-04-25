@@ -1,6 +1,6 @@
 {
   "id": "Test-2l7rcl",
-  "name": "Convert SRT to TXT",
+  "name": "Write SRT to TXT File",
   "version": "1.0.0",
   "main": "index.html",
   "manifestVersion": 5,
@@ -11,7 +11,7 @@
     }
   ],
   "requiredPermissions": {
-    "localFileSystem": "fullAccess",
+    "localFileSystem": "request",
     "clipboard": "readAndWrite",
     "allowCodeGenerationFromStrings": true,
     "launchProcess": {
@@ -36,7 +36,7 @@
       "type": "panel",
       "id": "apps",
       "label": {
-        "default": "Starter Panel"
+        "default": "Show Panel"
       },
       "minimumSize": {
         "width": 230,
