@@ -3,6 +3,7 @@ import "./fileProcessor.css"
 import { FileAddIcon } from './fileAdd';
 
 const fsProvider = require('uxp').storage.localFileSystem;
+ // Adobe File System Provider Docs: https://developer.adobe.com/xd/uxp/uxp/reference-js/Modules/uxp/Persistent%20File%20Storage/FileSystemProvider/
 
 export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
   
@@ -19,7 +20,7 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
       const fileNameWithoutExtention = file.name.replace(/.srt$/, '').replace(/.mp4$/, '');
       // read file content
       const content = await file.read();
-      // remove SRT formatting
+      // remove SRT formatting 
       const cleanedText = processSrt(content);
 
       if(cleanedText) {
