@@ -3,12 +3,13 @@ import "./fileProcessor.css"
 import { FileAddIcon } from './fileAdd';
 
 const fsProvider = require('uxp').storage.localFileSystem;
+ // Adobe File System Provider Docs: https://developer.adobe.com/xd/uxp/uxp/reference-js/Modules/uxp/Persistent%20File%20Storage/FileSystemProvider/
 
 export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
   
   const convertSrtToTxt = async () => {
     try {
-      // select a file
+      // select an SRT file
       const file = await fsProvider.getFileForOpening({ types: ['srt'] });
       if (!file) {
         console.log('No file selected');
@@ -19,9 +20,8 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
       const fileNameWithoutExtention = file.name.replace(/.srt$/, '').replace(/.mp4$/, '');
       // read file content
       const content = await file.read();
-      // console.log("READING FILE", content)
+      // remove SRT formatting 
       const cleanedText = processSrt(content);
-      // console.log("CLEANED TEXT", cleanedText);
 
       if(cleanedText) {
         setIsFileProcessed(true)
@@ -62,7 +62,6 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
       .replace(/^\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}\r?\n/gm, '')  // remove timecodes
       .replace(/^\s*[\r\n]+/gm, '')  // remove any empty lines left
       .trim();
-    console.log("AFTER", processedContent);
     return processedContent;
   };
 
