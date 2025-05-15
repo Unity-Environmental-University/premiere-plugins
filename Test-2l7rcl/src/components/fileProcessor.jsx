@@ -1,6 +1,7 @@
 import React from 'react';
 import "./fileProcessor.css"
 import { FileAddIcon } from './fileAdd';
+import { processSrt } from '../utils/processSrt';
 
 const fsProvider = require('uxp').storage.localFileSystem;
  // Adobe File System Provider Docs: https://developer.adobe.com/xd/uxp/uxp/reference-js/Modules/uxp/Persistent%20File%20Storage/FileSystemProvider/
@@ -54,18 +55,6 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
     setTimeout(() => {
       setErrorOccurred(false);
     }, 5000);
-  };
-
-  // strip sequence numbers and timecode
-  const processSrt = (content) => {
-
-    let processedContent = content
-    // search for beginning of file digit????
-      .replace(/^(\r?\n|)\d+\r?\n/gm, '')  // remove sequence numbers
-      .replace(/^\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}\r?\n/gm, '')  // remove timecodes
-      .replace(/^\s*[\r\n]+/gm, '')  // remove any empty lines left
-      .trim();
-    return processedContent;
   };
 
   return (
