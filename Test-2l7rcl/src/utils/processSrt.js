@@ -1,5 +1,4 @@
-  // strip sequence numbers and timecode from srt file
-  export function processSrt(srtText) {
+export function processSrt(srtText) {
     // normalize Windows line endings to Unix style.
     const normalizedText = srtText.replace(/\r\n/g, "\n");
 
