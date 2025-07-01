@@ -17,8 +17,6 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
         return;
       }
 
-      "Template_Timeline_01.mp4.srt" // remove
-
       // store file name with extension removed
       const fileNameWithoutExtention = file.name.replace(/\.mp4\.srt$/, '')
       // read file content
