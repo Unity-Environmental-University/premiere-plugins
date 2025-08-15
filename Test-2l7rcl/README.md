@@ -1,6 +1,6 @@
 # Write SRT to TXT File
-
-This Premiere Pro plugin, built with React, provides a way to generate readable transcripts directly within the Adobe Creative Cloud app. It removes sequence numbers and timecodes from an SRT file and saves the clean text in a new file. The simple panel interface includes a file picker for uploading SRT files and gives feedback once the process is complete.
+This React-based UXP panel for Premiere Pro converts SRT subtitle
+files into clean text transcripts by stripping sequence numbers and timecodes.
 
 ## Install dependencies
 
