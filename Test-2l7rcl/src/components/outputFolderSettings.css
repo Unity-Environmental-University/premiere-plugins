@@ -1,0 +1,34 @@
+.settings-card {
+  width: 100%;
+  padding: 8px;
+  margin-top: 12px;
+}
+
+.default-output {
+color: #FFFFFF;
+}
+
+.default-output-container {
+  margin-bottom: 15px;
+
+}
+
+.settings-row {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.settings-subtle {
+  opacity: 0.8;
+  color: #FFFFFF;
+}
+
+.icon-container {
+  margin-right: 10px;
+}
+
+.folder-selection-container {
+  display: flex;
+  align-items: center;
+}
