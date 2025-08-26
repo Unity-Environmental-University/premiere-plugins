@@ -2,6 +2,7 @@ import React from 'react';
 import "./fileProcessor.css"
 import { FileAddIcon } from './fileAdd';
 import { processSrt } from '../utils/processSrt';
+import { resolveDefaultOutputFolder } from '../utils/settings';
 
 const fsProvider = require('uxp').storage.localFileSystem;
  // Adobe File System Provider Docs: https://developer.adobe.com/xd/uxp/uxp/reference-js/Modules/uxp/Persistent%20File%20Storage/FileSystemProvider/
@@ -17,8 +18,10 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
         return;
       }
 
-      // store file name with extension removed
-      const fileNameWithoutExtention = file.name.replace(/\.mp4\.srt$/, '')
+      // derive base name by stripping .srt and optional trailing .mp4
+      const fileNameBase = file.name
+        .replace(/\.srt$/i, '')
+        .replace(/\.mp4$/i, '');
       // read file content
       const content = await file.read();
       // remove SRT formatting 
@@ -32,19 +35,27 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
         setIsFileProcessed(false)
       }, 5000)
     
-      // use original filename for default save name
-      const txtFileName = `${fileNameWithoutExtention}`;
-
-      // select a location to save TXT file
-      const txtFile = await fsProvider.getFileForSaving(txtFileName, { types: ['txt'] });
-      console.log(`File content: ${txtFile}`);
-      if (!txtFile) {
-        console.log('No location selected to save the file');
-        return;
+      // Try default output folder first; fall back to Save dialog
+      const targetName = `${fileNameBase}.txt`;
+      try {
+        const folder = await resolveDefaultOutputFolder();
+        if (folder && typeof folder.createFile === 'function') {
+          const txtFile = await folder.createFile(targetName, { overwrite: true });
+          await txtFile.write(cleanedText);
+          console.log('File saved to default folder:', targetName);
+        } else {
+          const txtFile = await fsProvider.getFileForSaving(targetName);
+          if (!txtFile) {
+            console.log('No location selected to save the file');
+            return;
+          }
+          await txtFile.write(cleanedText);
+          console.log('File saved:', targetName);
+        }
+      } catch (saveErr) {
+        setErrorOccurred(true);
+        console.error('Error saving file:', saveErr);
       }
-
-      await txtFile.write(cleanedText);
-      console.log('File saved successfully');
     } catch (error) {
       setErrorOccurred(true);
       console.error('Error processing file:', error);
