@@ -1,7 +1,7 @@
 {
-  "id": "Test-2l7rcl",
+  "id": "a7989258",
   "name": "Write SRT to TXT File",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.html",
   "manifestVersion": 5,
   "host": [
@@ -11,7 +11,7 @@
     }
   ],
   "requiredPermissions": {
-    "localFileSystem": "fullAccess",
+    "localFileSystem": "request",
     "clipboard": "readAndWrite",
     "allowCodeGenerationFromStrings": true,
     "launchProcess": {

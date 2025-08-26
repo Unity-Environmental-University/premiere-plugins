@@ -1,0 +1,21 @@
+.plugin-container {
+  color: var(--uxp-host-text-color-secondary, white);
+  width: 100%;
+  height: 175px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.plugin-content {
+  color: var(--uxp-host-text-color-secondary, white);
+  width: 100%;
+  height: 65px;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 20px;
+}
