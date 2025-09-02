@@ -1,0 +1,13 @@
+.status-container {
+  width: 100%;
+  margin: 10px 0 0 0;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.icon-container {
+  padding: 5px 0 0 5px;
+}
+
