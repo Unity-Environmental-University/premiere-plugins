@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import { StatusComplete } from "./statusComplete";
-import { StatusIncomplete } from "./statusIncomplete";
+import React, { useEffect, useState } from "react";
+import { BatchStatus } from "./batchStatus";
 import { Header } from "./header";
 import { FileProcessor } from "./fileProcessor";
 import { OutputFolderSettings } from "./outputFolderSettings";
 import "./container.css"
 
 export const Container = () => {
-  const [isFileProcessed, setIsFileProcessed] = useState(false)
-  const [errorOccurred, setErrorOccurred] = useState(false)
+  const [batchResult, setBatchResult] = useState(null);
+
+  // auto-hide status after 5s only when fully successful
+  useEffect(() => {
+    if (!batchResult) return;
+    if (batchResult.status !== 'success') return;
+    const t = setTimeout(() => setBatchResult(null), 5000);
+    return () => clearTimeout(t);
+  }, [batchResult]);
 
   return (
     <>
@@ -16,8 +22,8 @@ export const Container = () => {
         <Header />
         <div className="plugin-container">
         <OutputFolderSettings />
-        <FileProcessor setIsFileProcessed={setIsFileProcessed} setErrorOccurred={setErrorOccurred}/>
-        {errorOccurred ? <StatusIncomplete /> : isFileProcessed ? <StatusComplete /> : null}
+        <FileProcessor onBatchComplete={setBatchResult}/>
+        <BatchStatus result={batchResult} />
         </div>
       </div>
     </>
