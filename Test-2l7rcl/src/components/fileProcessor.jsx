@@ -7,7 +7,7 @@ import { resolveDefaultOutputFolder, chooseAndStoreDefaultOutputFolder } from '.
 const fsProvider = require('uxp').storage.localFileSystem;
  // Adobe File System Provider Docs: https://developer.adobe.com/xd/uxp/uxp/reference-js/Modules/uxp/Persistent%20File%20Storage/FileSystemProvider/
 
-export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
+export const FileProcessor = ({ onBatchComplete }) => {
   
   const convertSrtToTxt = async () => {
     try {
@@ -68,6 +68,7 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
             const txtFile = await fsProvider.getFileForSaving(targetName);
             if (!txtFile) {
               console.log('No location selected to save the file');
+              errorCount += 1;
               continue;
             }
             await txtFile.write(cleanedText);
@@ -80,21 +81,17 @@ export const FileProcessor = ({ setIsFileProcessed, setErrorOccurred }) => {
         }
       }
 
-      if (successCount > 0) {
-        setIsFileProcessed(true);
-        setTimeout(() => setIsFileProcessed(false), 5000);
-      }
-      if (errorCount > 0) {
-        setErrorOccurred(true);
+      const total = files.length;
+      const status = successCount === 0 ? 'error' : (errorCount === 0 ? 'success' : 'partial');
+      if (typeof onBatchComplete === 'function') {
+        onBatchComplete({ total, success: successCount, failed: errorCount, status });
       }
     } catch (error) {
-      setErrorOccurred(true);
       console.error('Error processing file:', error);
+      if (typeof onBatchComplete === 'function') {
+        onBatchComplete({ total: 0, success: 0, failed: 0, status: 'error' });
+      }
     }
-    
-    setTimeout(() => {
-      setErrorOccurred(false);
-    }, 5000);
   };
 
   return (
