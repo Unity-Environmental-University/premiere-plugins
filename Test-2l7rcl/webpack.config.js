@@ -8,7 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
   },
-  devtool: false, // no eval-based source maps: the manifest does not grant allowCodeGenerationFromStrings
+  devtool: "source-map", // separate .map file, no eval: the manifest does not grant allowCodeGenerationFromStrings
   externals: {
     uxp: "commonjs2 uxp",
     premierepro: "commonjs2 premierepro",
