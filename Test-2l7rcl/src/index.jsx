@@ -16,13 +16,6 @@ const appsController = new PanelController(() => <App />, {
       checked: false,
       oninvoke: () => location.reload(),
     },
-    {
-      id: "dialog1",
-      label: "About this Plugin",
-      enabled: true,
-      checked: false,
-      oninvoke: () => aboutController.run(),
-    },
   ],
 });
 

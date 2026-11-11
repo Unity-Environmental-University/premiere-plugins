@@ -8,7 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
   },
-  devtool: "cheap-eval-source-map", // won't work on XD due to lack of eval
+  devtool: "source-map", // separate .map file, no eval: the manifest does not grant allowCodeGenerationFromStrings
   externals: {
     uxp: "commonjs2 uxp",
     premierepro: "commonjs2 premierepro",
