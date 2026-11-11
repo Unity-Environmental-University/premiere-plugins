@@ -1,6 +1,6 @@
 import React from 'react';
 import './batchStatus.css';
-import { CheckmarkCircleIcon } from './checkMarkCircle';
+import { CheckmarkCircleIcon } from './checkmarkCircle';
 import { AlertCircleIcon } from './alertCircle';
 
 export const BatchStatus = ({ result }) => {
